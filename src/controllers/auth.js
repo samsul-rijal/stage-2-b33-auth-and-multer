@@ -7,6 +7,7 @@ const Joi = require("joi");
 const bcrypt = require("bcrypt");
 
 // import package here
+const jwt = require('jsonwebtoken')
 
 exports.register = async (req, res) => {
   // our validation schema here
@@ -40,6 +41,8 @@ exports.register = async (req, res) => {
     });
 
     // code here
+    const SECRET_KEY = 'BebasApajasilahkan'
+    const token = jwt.sign({id: newUser.id}, SECRET_KEY)
 
     res.status(200).send({
       status: "success...",
@@ -47,6 +50,7 @@ exports.register = async (req, res) => {
         name: newUser.name,
         email: newUser.email,
         // code here
+        token
       },
     });
   } catch (error) {
@@ -97,6 +101,14 @@ exports.login = async (req, res) => {
     }
 
     // code here
+    // const tokenData = {
+    //   id: userExist.id,
+    //   name: userExist.name,
+    //   email: userExist.email,
+    //   status: userExist.status
+    // }
+    const SECRET_KEY = 'BebasApajasilahkan'
+    const token = jwt.sign({id: userExist.id}, SECRET_KEY)
 
     res.status(200).send({
       status: "success...",
@@ -104,6 +116,7 @@ exports.login = async (req, res) => {
         name: userExist.name,
         email: userExist.email,
         // code here
+        token
       },
     });
   } catch (error) {
