@@ -11,6 +11,7 @@ const { register, login } = require('../controllers/auth')
 // Middleware
 const { auth } = require('../middlewares/auth')
 // import middleware here
+const {uploadFile} = require('../middlewares/uploadFile')
 
 // Route
 router.post('/user', addUsers)
@@ -20,7 +21,7 @@ router.patch('/user/:id', updateUser)
 router.delete('/user/:id', deleteUser)
 
 router.get('/products', getProduct)
-router.post('/product', auth, addProduct) // place middleware before controller
+router.post('/product', auth, uploadFile("image"), addProduct) // place middleware before controller
 
 router.get('/transactions', getTransactions)
 router.post('/transaction', auth, addTransaction)
