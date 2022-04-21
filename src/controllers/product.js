@@ -54,7 +54,7 @@ exports.getProduct = async (req, res) => {
 
 exports.addProduct = async (req, res) => {
   try {
-    const { data } = req.body;
+    const data = req.body;
     
     // code here
     let newProduct = await product.create({
